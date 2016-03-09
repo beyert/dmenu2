@@ -5,6 +5,7 @@
 #include <string.h>
 #include <strings.h>
 #include <unistd.h>
+#include <wordexp.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xutil.h>
@@ -47,6 +48,7 @@ static void keypress(XKeyEvent *ev);
 static void matchstr(void);
 static void matchtok(void);
 static void matchfuzzy(void);
+static void matchfile(char *filestart);
 static char *strchri(const char *s, int c);
 static size_t nextrune(int inc);
 static size_t utf8length();
@@ -603,6 +605,10 @@ keypress(XKeyEvent *ev) {
 		}
 		break;
 	case XK_Tab:
+		if (strchr(text, ' ') != NULL) {
+			matchfile(strchr(text, ' ')+1);
+			break;
+		}
 		if(!sel)
 			return;
 		if(strcmp(text, sel->text)) {
@@ -761,6 +767,36 @@ matchfuzzy(void) {
 
 	curr = sel = matches;
 	calcoffsets();
+}
+
+void
+matchfile(char *filestart) {
+	wordexp_t exp;
+	int i, j, k, p=strlen(filestart);
+	filestart[ p+1 ] = 0;
+	filestart[ p ] = '*';
+
+	wordexp(filestart, &exp, 0);
+	if (exp.we_wordc > 0) {
+		for (j=0,i=0; exp.we_wordv[0][i]!=0; i++,j++) {
+			if( exp.we_wordv[0][i]==' ' ) filestart[j++]='\\';
+			filestart[j]=exp.we_wordv[0][i];
+		}
+		filestart[j]=0;
+
+		for(k=1; k<exp.we_wordc; k++)
+			for(j=0, i=0; exp.we_wordv[k][i]; i++,j++) {
+				if( filestart[j]=='\\' ) j++;
+				if( filestart[j]!=exp.we_wordv[k][i] ) {
+					filestart[j]=0;
+					break;
+				}
+			}
+	} else {
+		filestart[ p ] = 0;
+	}
+	wordfree(&exp);
+	cursor = strlen(text);
 }
 
 size_t
