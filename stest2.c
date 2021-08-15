@@ -1,4 +1,4 @@
-/* See LICENSE file for copyright and license details. */
+/* See COPYRIGHT file for copyright and license details. */
 #include <dirent.h>
 #include <stdbool.h>
 #include <stdio.h>

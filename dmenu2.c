@@ -1,4 +1,4 @@
-/* See LICENSE file for copyright and license details. */
+/* See COPYRIGHT file for copyright and license details. */
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,9 +71,9 @@ static const char *selbgcolor  = NULL;
 static const char *selfgcolor  = NULL;
 static const char *dimcolor = NULL; 
 static const char *undercolor = NULL;
-static char *name = "dmenu";
-static char *class = "Dmenu";
-static char *dimname = "dimenu";
+static char *name = "dmenu2";
+static char *class = "Dmenu2";
+static char *dimname = "dimenu2";
 static unsigned int lines = 0, line_height = 0, under_height = 0;
 static int xoffset = 0;
 static int yoffset = 0;
@@ -120,7 +120,7 @@ main(int argc, char *argv[]) {
 	for(i = 1; i < argc; i++)
 		/* these options take no arguments */
 		if(!strcmp(argv[i], "-v")) {      /* prints version information */
-			puts("dmenu-"VERSION", © 2006-2012 dmenu engineers, see LICENSE for details");
+			puts("dmenu2-"VERSION", © 2006-2012 dmenu engineers, © 2013-2021 dmenu2 engineers, see COPYRIGHT for details");
 			exit(EXIT_SUCCESS);
 		}
 		else if(!strcmp(argv[i], "-hist"))
@@ -163,12 +163,12 @@ main(int argc, char *argv[]) {
 		else if(!strcmp(argv[i], "-uh"))   /* height of underline */
 			under_height = atoi(argv[++i]);
 		#ifdef XINERAMA
-		else if(!strcmp(argv[i], "-s"))   /* screen number for dmenu to appear in */
+		else if(!strcmp(argv[i], "-s"))   /* screen number for dmenu2 to appear in */
 			snum = atoi(argv[++i]);
 		#endif
-		else if (!strcmp(argv[i], "-name")) /* dmenu window name */
+		else if (!strcmp(argv[i], "-name")) /* dmenu2 window name */
 			name = argv[++i];
-		else if (!strcmp(argv[i], "-class")) /* dmenu window class */
+		else if (!strcmp(argv[i], "-class")) /* dmenu2 window class */
 			class = argv[++i];
 		else if (!strcmp(argv[i], "-o"))  /* opacity */
 			opacity = atof(argv[++i]);
@@ -259,22 +259,22 @@ read_resourses(void) {
 	xrm = XResourceManagerString(dc->dpy);
 	if( xrm != NULL ) {
 		xdb = XrmGetStringDatabase(xrm);
-		if( font == NULL && XrmGetResource(xdb, "dmenu.font", "*", datatype, &xvalue) == True )
+		if( font == NULL && XrmGetResource(xdb, "dmenu2.font", "*", datatype, &xvalue) == True )
 			font = strdup(xvalue.addr);
-		if( normfgcolor == NULL && XrmGetResource(xdb, "dmenu.foreground", "*", datatype, &xvalue) == True )
+		if( normfgcolor == NULL && XrmGetResource(xdb, "dmenu2.foreground", "*", datatype, &xvalue) == True )
 			normfgcolor = strdup(xvalue.addr);
-		if( normbgcolor == NULL && XrmGetResource(xdb, "dmenu.background", "*", datatype, &xvalue) == True )
+		if( normbgcolor == NULL && XrmGetResource(xdb, "dmenu2.background", "*", datatype, &xvalue) == True )
 			normbgcolor = strdup(xvalue.addr);
-		if( selfgcolor == NULL && XrmGetResource(xdb, "dmenu.selforeground", "*", datatype, &xvalue) == True )
+		if( selfgcolor == NULL && XrmGetResource(xdb, "dmenu2.selforeground", "*", datatype, &xvalue) == True )
 			selfgcolor = strdup(xvalue.addr);
-		if( selbgcolor == NULL && XrmGetResource(xdb, "dmenu.selbackground", "*", datatype, &xvalue) == True )
+		if( selbgcolor == NULL && XrmGetResource(xdb, "dmenu2.selbackground", "*", datatype, &xvalue) == True )
 			selbgcolor = strdup(xvalue.addr);
-		if( dimcolor == NULL && XrmGetResource(xdb, "dmenu.dimcolor", "*", datatype, &xvalue) == True )
+		if( dimcolor == NULL && XrmGetResource(xdb, "dmenu2.dimcolor", "*", datatype, &xvalue) == True )
 			dimcolor = strdup(xvalue.addr);
-		if( undercolor == NULL && XrmGetResource(xdb, "dmenu.undercolor", "*", datatype, &xvalue) == True )
+		if( undercolor == NULL && XrmGetResource(xdb, "dmenu2.undercolor", "*", datatype, &xvalue) == True )
 			undercolor = strdup(xvalue.addr);
 
-		if( XrmGetResource(xdb, "dmenu.opacity", "*", datatype, &xvalue) == True )
+		if( XrmGetResource(xdb, "dmenu2.opacity", "*", datatype, &xvalue) == True )
 			opacity = atof(strdup(xvalue.addr));
 		XrmDestroyDatabase(xdb);
 	}
@@ -498,8 +498,8 @@ keypress(XKeyEvent *ev) {
 		case XK_g: ksym = XK_Home;  break;
 		case XK_G: ksym = XK_End;   break;
 		case XK_h: ksym = XK_Up;    break;
-		case XK_j: ksym = XK_Next;  break;
-		case XK_k: ksym = XK_Prior; break;
+		case XK_j: ksym = XK_Prior;  break;
+		case XK_k: ksym = XK_Next; break;
 		case XK_l: ksym = XK_Down;  break;
 		default:
 			return;
@@ -1065,7 +1065,7 @@ setup(void) {
 
 void
 usage(void) {
-	fputs("usage: dmenu [-b] [-q] [-f] [-r] [-i] [-z] [-t] [-mask] [-noinput]\n"
+	fputs("usage: dmenu2 [-b] [-q] [-f] [-r] [-i] [-z] [-t] [-mask] [-noinput]\n"
 				"             [-s screen] [-name name] [-class class] [ -o opacity]\n"
 				"             [-dim opcity] [-dc color] [-l lines] [-p prompt] [-fn font]\n"
 	      "             [-x xoffset] [-y yoffset] [-h height] [-w width] [-uh height]\n"

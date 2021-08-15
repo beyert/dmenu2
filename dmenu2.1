@@ -1,8 +1,8 @@
-.TH DMENU 1 dmenu\-VERSION
+.TH DMENU2 1 dmenu2\-VERSION
 .SH NAME
-dmenu \- dynamic menu
+dmenu2 \- dynamic menu 2
 .SH SYNOPSIS
-.B dmenu
+.B dmenu2
 .RB [ \-b ]
 .RB [ \-f ]
 .RB [ \-r ]
@@ -49,29 +49,29 @@ dmenu \- dynamic menu
 .IR "<filename>" ]
 .RB [ \-v ]
 .P
-.BR dmenu_run " ..."
+.BR dmenu2_run " ..."
 .SH DESCRIPTION
-.B dmenu
+.B dmenu2
 is a dynamic menu for X, which reads a list of newline\-separated items from
 stdin.  When the user selects an item and presses Return, their choice is printed
-to stdout and dmenu terminates.  Entering text will narrow the items to those
+to stdout and dmenu2 terminates.  Entering text will narrow the items to those
 matching the tokens in the input.
 .P
-.B dmenu_run
+.B dmenu2_run
 is a script used by
 .IR dwm (1)
 which lists programs in the user's $PATH and runs the result in their $SHELL.
 .SH OPTIONS
 .TP
 .B \-b
-dmenu appears at the bottom of the screen.
+dmenu2 appears at the bottom of the screen.
 .TP
 .B \-q
-dmenu will not show any items if the search string is empty.
+dmenu2 will not show any items if the search string is empty.
 .TP
 .B \-f
-dmenu grabs the keyboard before reading stdin.  This is faster, but will lock up
-X until stdin reaches end\-of\-file.
+dmenu2 grabs the keyboard before reading stdin.  This is faster, but will lock
+up X until stdin reaches end\-of\-file.
 .TP
 .B \-r 
 activates filter mode. All matching items currently shown in the list will be
@@ -79,43 +79,46 @@ selected, starting with the item that is highlighted and wrapping around to the
 beginning of the list. 
 .TP 
 .B \-i
-dmenu matches menu items case insensitively.
+dmenu2 matches menu items case insensitively.
 .TP
 .B \-z
-dmenu uses fuzzy matching. It matches items that have all characters entered, in sequence they are
-entered, but there may be any number of characters between matched characters.
+dmenu2 uses fuzzy matching. It matches items that have all characters entered,
+in sequence they are entered, but there may be any number of characters between
+matched characters.
 For example it takes "txt" makes it to "*t*x*t" glob pattern and checks if it
 matches.
 .TP
 .B \-t
-dmenu uses space\-separated tokens to match menu items. Using this overrides -z option.
+dmenu2 uses space\-separated tokens to match menu items. Using this overrides
+-z option.
 .TP
 .B \-mask
-dmenu masks input with asterisk characters (*).
+dmenu2 masks input with asterisk characters (*).
 .TP
 .B \-noinput
-dmenu ignores input from stdin (equivalent to: echo | dmenu).
+dmenu2 ignores input from stdin (equivalent to: echo | dmenu2).
 .TP
 .BI \-s " screen"
-dmenu apears on the specified screen number. Number given corespondes to screen number in X configuration.
+dmenu2 apears on the specified screen number. Number given corespondes to
+screen number in X configuration.
 .TP
 .BI \-name " name"
-defines window name for dmenu. Defaults to "dmenu".
+defines window name for dmenu2. Defaults to "dmenu2".
 .TP
 .BI \-class " class"
-defines window class for dmenu. Defaults to "Dmenu".
+defines window class for dmenu2. Defaults to "Dmenu2".
 .TP
 .BI \-o " opacity"
-defines window opacity for dmenu. Defaults to 1.0.
+defines window opacity for dmenu2. Defaults to 1.0.
 .TP
 .BI \-dim " opacity"
-enables screen dimming when dmenu appers. Takes dim opacity as argument.
+enables screen dimming when dmenu2 appers. Takes dim opacity as argument.
 .TP 
 .BI \-dc " color"
 defines color of screen dimming. Active only when -dim in effect. Defautls to black (#000000)
 .TP
 .BI \-l " lines"
-dmenu lists items vertically, with the given number of lines.
+dmenu2 lists items vertically, with the given number of lines.
 .TP
 .BI \-h " height"
 defines the height of the bar in pixels.
@@ -162,7 +165,7 @@ the file to use for history
 .B \-v
 prints version information to stdout, then exits.
 .SH USAGE
-dmenu is completely controlled by the keyboard.  Items are selected using the
+dmenu2 is completely controlled by the keyboard.  Items are selected using the
 arrow keys, page up, page down, home, and end.
 .TP
 .B Tab
@@ -254,4 +257,4 @@ M\-l
 Down
 .SH SEE ALSO
 .IR dwm (1),
-.IR stest (1)
+.IR stest2 (1)
